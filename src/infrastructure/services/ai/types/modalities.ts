@@ -10,12 +10,12 @@
  * new modalities can be added without changing core infrastructure.
  */
 
-import { AIProviderType } from '@/domain/models';
+import { AIProviderType } from "@/domain/models";
 
 /**
  * Supported AI modalities
  */
-export type AIModality = 'text-chat' | 'image-generation' | 'text-to-speech';
+export type AIModality = "text-chat" | "image-generation" | "text-to-speech" | "fairodds";
 
 /**
  * Base request interface for all modalities
@@ -56,7 +56,7 @@ export interface StreamableResponse extends BaseAIResponse {
 /**
  * Message role in conversation
  */
-export type ChatRole = 'user' | 'assistant' | 'system';
+export type ChatRole = "user" | "assistant" | "system";
 
 /**
  * Single message in conversation
@@ -82,14 +82,14 @@ export interface TextChatRequest extends BaseAIRequest {
  * Text chat response (streaming)
  */
 export interface TextChatResponse extends StreamableResponse {
-  modality: 'text-chat';
+  modality: "text-chat";
 }
 
 /**
  * Non-streaming text chat response
  */
 export interface TextChatSyncResponse extends BaseAIResponse {
-  modality: 'text-chat';
+  modality: "text-chat";
   /** Complete response text */
   content: string;
   /** Token usage statistics */
@@ -107,7 +107,7 @@ export interface TextChatSyncResponse extends BaseAIResponse {
 /**
  * Image size options
  */
-export type ImageSize = '256x256' | '512x512' | '1024x1024' | '1792x1024' | '1024x1792';
+export type ImageSize = "256x256" | "512x512" | "1024x1024" | "1792x1024" | "1024x1792";
 
 /**
  * Image generation request
@@ -122,18 +122,18 @@ export interface ImageGenRequest extends BaseAIRequest {
   /** Number of images to generate */
   n?: number;
   /** Image quality */
-  quality?: 'standard' | 'hd';
+  quality?: "standard" | "hd";
   /** Output format */
-  format?: 'url' | 'base64';
+  format?: "url" | "base64";
 }
 
 /**
  * Generated image data
  */
 export interface GeneratedImage {
-  /** Image URL (if format is 'url') */
+  /** Image URL (if format is "url") */
   url?: string;
-  /** Base64 encoded image (if format is 'base64') */
+  /** Base64 encoded image (if format is "base64") */
   base64?: string;
   /** Revised prompt (if model modified it) */
   revisedPrompt?: string;
@@ -143,7 +143,7 @@ export interface GeneratedImage {
  * Image generation response
  */
 export interface ImageGenResponse extends BaseAIResponse {
-  modality: 'image-generation';
+  modality: "image-generation";
   /** Generated images */
   images: GeneratedImage[];
 }
@@ -155,7 +155,7 @@ export interface ImageGenResponse extends BaseAIResponse {
 /**
  * Audio output format
  */
-export type AudioFormat = 'mp3' | 'wav' | 'opus' | 'aac' | 'flac';
+export type AudioFormat = "mp3" | "wav" | "opus" | "aac" | "flac";
 
 /**
  * Voice options (provider-specific)
@@ -164,7 +164,7 @@ export interface VoiceOption {
   id: string;
   name: string;
   language: string;
-  gender?: 'male' | 'female' | 'neutral';
+  gender?: "male" | "female" | "neutral";
 }
 
 /**
@@ -187,7 +187,7 @@ export interface TTSRequest extends BaseAIRequest {
  * Text-to-speech response (streaming audio)
  */
 export interface TTSResponse extends StreamableResponse {
-  modality: 'text-to-speech';
+  modality: "text-to-speech";
   /** Audio format of the stream */
   format: AudioFormat;
   /** Duration in seconds (if known) */
@@ -198,7 +198,7 @@ export interface TTSResponse extends StreamableResponse {
  * Non-streaming TTS response
  */
 export interface TTSSyncResponse extends BaseAIResponse {
-  modality: 'text-to-speech';
+  modality: "text-to-speech";
   /** Audio data as base64 */
   audio: string;
   /** Audio format */
